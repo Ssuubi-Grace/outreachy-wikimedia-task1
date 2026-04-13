@@ -31,22 +31,24 @@
 
             //{# YOUR CODE HERE #}
 
-            //getting the element where the results will be displayed
+            //getting the element where the results will be displayed 
             let output = document.getElementById("results");
 
-            //array of month names to convert from number to text    
-            let months = [
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-            ];
-            //looping through each article in the data array, splitting the date string into year, month and day     
-            //and creating the human reable sentence for each article, then adding it to the output element
+
+            // Format each article's creation date into a readable string and display it in the required output format
             for (let article of data) {
-                let [year, month, day] = article.creation_date.split("-");
-                let monthName = months[month - 1];
-            let finalSentence = `Article "${article.title}" (Page ID ${article.page_id}) was created at ${monthName} ${day}, ${year}.`;
+                let dateObj = new Date(article.creation_date);
+
+                let formattedDate = dateObj.toLocaleDateString("en-US", {
+                year: "numeric",
+                month: "long",
+                day: "numeric"
+                });
+
+                let finalSentence = `Article "${article.title}" (Page ID ${article.page_id}) was created at ${formattedDate}.`;
+
                 output.innerHTML += `<p>${finalSentence}</p>`;
-            }   
+            }
 
         </script>
         <script>
